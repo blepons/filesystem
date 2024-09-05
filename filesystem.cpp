@@ -28,14 +28,14 @@ class Path {
 public:
     explicit Path(std::string_view path);
 
-    bool is_absolute() const { return absolute_; };
+    [[nodiscard]] bool is_absolute() const { return absolute_; };
 
     Path &join_with(const Path &path);
     Path &absolutize();
     Path &relativize(const Path &base_path);
     Path &relativize();
 
-    std::string string() const;
+    [[nodiscard]] std::string string() const;
 
 private:
     std::vector<std::string> path_;
