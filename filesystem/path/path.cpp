@@ -105,8 +105,7 @@ Path& Path::relativize(const Path& base) {
         throw std::invalid_argument("base must be absolute");
     }
     const auto ends = ranges::mismatch(path_, base.path_);
-    decltype(path_) new_path(std::from_range,
-                             ranges::subrange(ends.in1, ranges::end(path_)));
+    decltype(path_) new_path{ends.in1, ranges::end(path_)};
     parent_dir_calls_ = ranges::distance(ends.in2, ranges::end(base.path_));
     absolute_ = false;
     std::swap(path_, new_path);
