@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <filesystem>
+#include <iterator>
 #include <ranges>
 #include <sstream>
 #include <stdexcept>
@@ -23,6 +24,7 @@ public:
 
     Path &join_with(const Path &path);
     Path &absolutize();
+    Path &relativize(const Path &base_path);
 
     std::string string() const;
 
@@ -112,6 +114,22 @@ Path &Path::absolutize() {
     return *this;
 }
 
+Path &Path::relativize(const Path &base) {
+    if (!is_absolute()) {
+        throw std::invalid_argument("path must be absolute");
+    }
+    if (!base.is_absolute()) {
+        throw std::invalid_argument("base must be absolute");
+    }
+    const auto ends = ranges::mismatch(path_, base.path_);
+    decltype(path_) new_path(std::from_range,
+                             ranges::subrange(ends.in1, ranges::end(path_)));
+    parent_dir_calls_ = ranges::distance(ends.in2, ranges::end(base.path_));
+    absolute_ = false;
+    std::swap(path_, new_path);
+    return *this;
+}
+
 } // namespace
 
 std::string join(std::string_view base, std::string_view appended) {
@@ -125,6 +143,10 @@ std::string join(std::string_view base, std::string_view appended) {
 
 std::string absolute(std::string_view path) {
     return Path{path}.absolutize().string();
+}
+
+std::string relativize(std::string_view path, std::string_view base) {
+    return Path{path}.relativize(Path{base}).string();
 }
 
 } // namespace Filesystem
