@@ -27,7 +27,7 @@ private:
 
     void parent_dir();
     void parent_dir(std::size_t n);
-    void process_dir(std::string_view dir);
+    void process_dir(const std::string_view dir);
 };
 
 }  // namespace Filesystem

@@ -38,7 +38,7 @@ void Path::parent_dir(std::size_t n) {
     parent_dir_calls_ += n;
 }
 
-void Path::process_dir(std::string_view dir) {
+void Path::process_dir(const std::string_view dir) {
     if (dir == "..") {
         parent_dir();
     } else if (dir != ".") {
