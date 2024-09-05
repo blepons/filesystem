@@ -30,10 +30,10 @@ public:
 
     [[nodiscard]] bool is_absolute() const { return absolute_; };
 
-    Path &join_with(const Path &path);
-    Path &absolutize();
-    Path &relativize(const Path &base_path);
-    Path &relativize();
+    Path& join_with(const Path& path);
+    Path& absolutize();
+    Path& relativize(const Path& base_path);
+    Path& relativize();
 
     [[nodiscard]] std::string string() const;
 
@@ -98,22 +98,21 @@ std::string Path::string() const {
     } else if (path_.empty()) {
         stream << "." << separator;
     } else {
-        ranges::for_each(
-            std::views::iota(0U, parent_dir_calls_),
-            [&stream](auto) { stream << ".." << separator; });
+        ranges::for_each(std::views::iota(0U, parent_dir_calls_),
+                         [&stream](auto) { stream << ".." << separator; });
     }
-    auto print = [&stream](const auto &dir) { stream << dir << separator; };
+    auto print = [&stream](const auto& dir) { stream << dir << separator; };
     ranges::for_each(path_, print);
     return stream.str();
 }
 
-Path &Path::join_with(const Path &path) {
+Path& Path::join_with(const Path& path) {
     parent_dir(path.parent_dir_calls_);
-    ranges::for_each(path_, [this](const auto &dir) { process_dir(dir); });
+    ranges::for_each(path_, [this](const auto& dir) { process_dir(dir); });
     return *this;
 }
 
-Path &Path::absolutize() {
+Path& Path::absolutize() {
     if (is_absolute()) {
         return *this;
     }
@@ -123,7 +122,7 @@ Path &Path::absolutize() {
     return *this;
 }
 
-Path &Path::relativize(const Path &base) {
+Path& Path::relativize(const Path& base) {
     if (!is_absolute()) {
         throw std::invalid_argument("path must be absolute");
     }
@@ -139,7 +138,7 @@ Path &Path::relativize(const Path &base) {
     return *this;
 }
 
-Path &Path::relativize() {
+Path& Path::relativize() {
     if (!is_absolute()) {
         return *this;
     }
@@ -147,7 +146,7 @@ Path &Path::relativize() {
     return relativize(cwd);
 }
 
-} // namespace
+}  // namespace
 
 std::string join(std::string_view base, std::string_view appended) {
     Path base_p{base};
@@ -170,4 +169,4 @@ std::string relative(std::string_view path) {
     return Path{path}.relativize().string();
 }
 
-} // namespace Filesystem
+}  // namespace Filesystem
