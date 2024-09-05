@@ -14,6 +14,14 @@ namespace Filesystem {
 
 namespace {
 
+#if defined(_WIN32)
+constexpr char separator = '\\';
+constexpr char root_dir = '\\';
+#elif defined(__APPLE__) || defined(__unix__)
+constexpr char separator = '/';
+constexpr char root_dir = '/';
+#endif
+
 namespace ranges = std::ranges;
 
 class Path {
@@ -67,15 +75,15 @@ Path::Path(std::string_view path) {
     if (path.empty()) {
         throw std::invalid_argument("path must be non-empty");
     }
-    if (path.starts_with('/')) {
+    if (path.starts_with(root_dir)) {
         absolute_ = true;
         path = path.substr(1);
     }
-    if (path.ends_with('/')) {
+    if (path.ends_with(separator)) {
         path = path.substr(0, path.length() - 1);
     }
     auto split =
-        path | std::views::split('/') |
+        path | std::views::split(separator) |
         std::views::transform([](auto rng) { return std::string_view(rng); });
     ranges::for_each(split, [this](const auto dir) { process_dir(dir); });
     if (is_absolute()) {
@@ -86,15 +94,15 @@ Path::Path(std::string_view path) {
 std::string Path::string() const {
     std::ostringstream stream;
     if (is_absolute()) {
-        stream << '/';
+        stream << root_dir;
     } else if (path_.empty()) {
-        stream << "." << '/';
+        stream << "." << separator;
     } else {
         ranges::for_each(
             std::views::iota(0U, parent_dir_calls_),
-            [&stream](auto) { stream << ".." << '/'; });
+            [&stream](auto) { stream << ".." << separator; });
     }
-    auto print = [&stream](const auto &dir) { stream << dir << '/'; };
+    auto print = [&stream](const auto &dir) { stream << dir << separator; };
     ranges::for_each(path_, print);
     return stream.str();
 }
