@@ -1,1 +1,5 @@
-add_library(filesystem filesystem.hpp filesystem.cpp path.hpp path.cpp)
+add_subdirectory(path)
+
+add_library(filesystem filesystem.hpp filesystem.cpp)
+
+target_link_libraries(filesystem path)

@@ -13,7 +13,6 @@ public:
     explicit Path(std::string_view path);
 
     [[nodiscard]] bool is_absolute() const noexcept { return absolute_; };
-
     Path& join_with(const Path& path);
     Path& absolutize();
     Path& relativize(const Path& base_path);
