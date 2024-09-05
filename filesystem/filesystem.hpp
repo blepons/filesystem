@@ -11,6 +11,6 @@ std::string absolute(std::string_view path);
 std::string relativize(std::string_view path, std::string_view base);
 std::string relative(std::string_view path);
 
-} // namespace Filesystem
+}  // namespace Filesystem
 
-#endif // !OOP_1_FILESYSTEM_HPP_
+#endif  // !OOP_1_FILESYSTEM_HPP_
