@@ -25,6 +25,7 @@ public:
     Path &join_with(const Path &path);
     Path &absolutize();
     Path &relativize(const Path &base_path);
+    Path &relativize();
 
     std::string string() const;
 
@@ -130,6 +131,14 @@ Path &Path::relativize(const Path &base) {
     return *this;
 }
 
+Path &Path::relativize() {
+    if (!is_absolute()) {
+        return *this;
+    }
+    const Path cwd{std::filesystem::current_path().string()};
+    return relativize(cwd);
+}
+
 } // namespace
 
 std::string join(std::string_view base, std::string_view appended) {
@@ -147,6 +156,10 @@ std::string absolute(std::string_view path) {
 
 std::string relativize(std::string_view path, std::string_view base) {
     return Path{path}.relativize(Path{base}).string();
+}
+
+std::string relative(std::string_view path) {
+    return Path{path}.relativize().string();
 }
 
 } // namespace Filesystem
