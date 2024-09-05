@@ -28,7 +28,7 @@ class Path {
 public:
     explicit Path(std::string_view path);
 
-    [[nodiscard]] bool is_absolute() const { return absolute_; };
+    [[nodiscard]] bool is_absolute() const noexcept { return absolute_; };
 
     Path& join_with(const Path& path);
     Path& absolutize();
