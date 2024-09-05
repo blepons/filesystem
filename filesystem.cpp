@@ -1,6 +1,7 @@
 #include "filesystem.hpp"
 #include <algorithm>
 #include <cstddef>
+#include <filesystem>
 #include <ranges>
 #include <sstream>
 #include <stdexcept>
@@ -21,6 +22,7 @@ public:
     bool is_absolute() const { return absolute_; };
 
     Path &join_with(const Path &path);
+    Path &absolutize();
 
     std::string string() const;
 
@@ -100,6 +102,16 @@ Path &Path::join_with(const Path &path) {
     return *this;
 }
 
+Path &Path::absolutize() {
+    if (is_absolute()) {
+        return *this;
+    }
+    Path cwd{std::filesystem::current_path().string()};
+    cwd.join_with(*this);
+    std::swap(*this, cwd);
+    return *this;
+}
+
 } // namespace
 
 std::string join(std::string_view base, std::string_view appended) {
@@ -109,6 +121,10 @@ std::string join(std::string_view base, std::string_view appended) {
         throw std::invalid_argument("appended path must be relative");
     }
     return base_p.join_with(appended_p).string();
+}
+
+std::string absolute(std::string_view path) {
+    return Path{path}.absolutize().string();
 }
 
 } // namespace Filesystem

@@ -7,6 +7,7 @@
 namespace Filesystem {
 
 std::string join(std::string_view base, std::string_view appended);
+std::string absolute(std::string_view path);
 
 } // namespace Filesystem
 
