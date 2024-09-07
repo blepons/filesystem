@@ -83,6 +83,7 @@ std::string Path::string() const {
 
 Path& Path::join_with(const Path& path) {
     parent_dir(path.parent_dir_calls_);
+    path_.reserve(path_.size() + path.path_.size());
     ranges::for_each(path.path_, [this](const auto& dir) { process_dir(dir); });
     return *this;
 }
