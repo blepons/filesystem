@@ -8,7 +8,7 @@ namespace Filesystem {
 
 std::string join(std::string_view base, std::string_view appended);
 std::string absolute(std::string_view path);
-std::string relativize(std::string_view path, std::string_view base);
+std::string relativize(std::string_view base, std::string_view path);
 std::string relative(std::string_view path);
 
 }  // namespace Filesystem

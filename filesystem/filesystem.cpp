@@ -19,7 +19,7 @@ std::string absolute(std::string_view path) {
     return Path{path}.absolutize().string();
 }
 
-std::string relativize(std::string_view path, std::string_view base) {
+std::string relativize(std::string_view base, std::string_view path) {
     return Path{path}.relativize(Path{base}).string();
 }
 
