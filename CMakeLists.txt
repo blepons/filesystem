@@ -15,3 +15,5 @@ add_compile_options(
 
 
 add_subdirectory(filesystem)
+
+add_subdirectory(tests)
