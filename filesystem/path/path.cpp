@@ -70,7 +70,7 @@ std::string Path::string() const {
     std::ostringstream stream;
     if (is_absolute()) {
         stream << root_dir;
-    } else if (path_.empty()) {
+    } else if (empty()) {
         stream << "." << separator;
     } else {
         ranges::for_each(std::views::iota(0U, parent_dir_calls_),

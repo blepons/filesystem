@@ -13,6 +13,10 @@ public:
     explicit Path(std::string_view path);
 
     [[nodiscard]] bool is_absolute() const noexcept { return absolute_; };
+    [[nodiscard]] std::size_t size() const noexcept {
+        return path_.size() + parent_dir_calls_;
+    };
+    [[nodiscard]] bool empty() const noexcept { return size() == 0; };
     Path& join_with(const Path& path);
     Path& absolutize();
     Path& relativize(const Path& base_path);
