@@ -13,6 +13,22 @@ add_compile_options(
     $<$<COMPILE_LANGUAGE:CXX>:-Wextra>
 )
 
+if(ENABLE_CODE_COVERAGE)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+    include(CodeCoverage)
+
+    append_coverage_compiler_flags()
+
+    set(GCOVR_ADDITIONAL_ARGS "--exclude-throw-branches")
+
+    setup_target_for_coverage_gcovr_html(
+        NAME unit_tests_coverage
+        EXECUTABLE unit_tests
+        DEPENDENCIES unit_tests
+        EXCLUDE "test/*"
+    )
+endif()
 
 add_subdirectory(filesystem)
 
