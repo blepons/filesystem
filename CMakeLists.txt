@@ -27,9 +27,12 @@ if(ENABLE_CODE_COVERAGE)
         EXECUTABLE unit_tests
         DEPENDENCIES unit_tests
         EXCLUDE "test/*"
+        EXCLUDE "examples/*"
     )
 endif()
 
 add_subdirectory(filesystem)
 
 add_subdirectory(tests)
+
+add_subdirectory(examples)
