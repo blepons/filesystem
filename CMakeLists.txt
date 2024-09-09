@@ -14,6 +14,8 @@ add_compile_options(
 )
 
 if(ENABLE_CODE_COVERAGE)
+    set(BUILD_TESTS TRUE)
+
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
     include(CodeCoverage)
@@ -33,6 +35,8 @@ endif()
 
 add_subdirectory(filesystem)
 
-add_subdirectory(tests)
+if(BUILD_TESTS)
+    add_subdirectory(tests)
+endif()
 
 add_subdirectory(examples)
