@@ -1,5 +1,5 @@
-#ifndef OOP_1_FILESYSTEM_HPP_
-#define OOP_1_FILESYSTEM_HPP_
+#ifndef FILESYSTEM_HPP_
+#define FILESYSTEM_HPP_
 
 #include <string>
 #include <string_view>
@@ -59,4 +59,4 @@ std::string relative(std::string_view path);
 
 }  // namespace Filesystem
 
-#endif  // !OOP_1_FILESYSTEM_HPP_
+#endif  // !FILESYSTEM_HPP_
