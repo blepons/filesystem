@@ -1,5 +1,5 @@
-#ifndef OOP_1_FILESYSTEM_PATH_HPP_
-#define OOP_1_FILESYSTEM_PATH_HPP_
+#ifndef FILESYSTEM_PATH_HPP_
+#define FILESYSTEM_PATH_HPP_
 
 #include <cstddef>
 #include <string>
@@ -109,4 +109,4 @@ private:
 
 }  // namespace Filesystem
 
-#endif  // !OOP_1_FILESYSTEM_PATH_HPP_
+#endif  // !FILESYSTEM_PATH_HPP_
