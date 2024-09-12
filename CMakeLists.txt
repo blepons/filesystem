@@ -28,7 +28,7 @@ if(ENABLE_CODE_COVERAGE)
         NAME unit_tests_coverage
         EXECUTABLE unit_tests
         DEPENDENCIES unit_tests
-        EXCLUDE "test/*"
+        EXCLUDE "tests/*"
         EXCLUDE "examples/*"
     )
 endif()
