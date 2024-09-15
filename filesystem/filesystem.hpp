@@ -14,6 +14,7 @@ namespace Filesystem {
  * \return A string representing joined path.
  * \throws std::invalid_argument If appended is absolute.
  * \throws std::invalid_argument If base or appended are empty.
+ * \throws std::invalid_argument If one of the filenames is empty.
  */
 std::string join(std::string_view base, std::string_view appended);
 
@@ -27,6 +28,7 @@ std::string join(std::string_view base, std::string_view appended);
  * \param path The path to convert.
  * \return A string representing absolute path.
  * \throws std::invalid_argument If path is empty.
+ * \throws std::invalid_argument If one of the filenames is empty.
  */
 std::string absolute(std::string_view path);
 
@@ -41,6 +43,7 @@ std::string absolute(std::string_view path);
  * \return A string representing relativized path.
  * \throws std::invalid_argument If base or path are absolute.
  * \throws std::invalid_argument If base or path are empty.
+ * \throws std::invalid_argument If one of the filenames is empty.
  */
 std::string relativize(std::string_view base, std::string_view path);
 
@@ -54,6 +57,7 @@ std::string relativize(std::string_view base, std::string_view path);
  * \param path The path to relativize.
  * \return A string representing relativized path.
  * \throws std::invalid_argument If path is empty.
+ * \throws std::invalid_argument If one of the filenames is empty.
  */
 std::string relative(std::string_view path);
 

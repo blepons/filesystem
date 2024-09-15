@@ -41,6 +41,8 @@ void Path::parent_dir(std::size_t n) {
 void Path::process_dir(const std::string_view dir) {
     if (dir == "..") {
         parent_dir();
+    } else if (dir == "") {
+        throw std::invalid_argument("filename must be non-empty");
     } else if (dir != ".") {
         path_.emplace_back(dir);
     }

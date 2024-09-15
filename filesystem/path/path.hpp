@@ -17,6 +17,7 @@ public:
      * \brief Contructs a Path object from given string_view.
      * \param path Path represented as std::string_view.
      * \throws std::invalid_argument If path is empty.
+     * \throws std::invalid_argument If one of the filenames is empty.
      */
     explicit Path(std::string_view path);
 
