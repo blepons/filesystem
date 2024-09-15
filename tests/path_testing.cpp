@@ -43,6 +43,9 @@ TEST_CASE("Path constructor") {
     SECTION("Empty") {
         REQUIRE_THROWS(Path(""));
     }
+    SECTION("Empty filename") {
+        REQUIRE_THROWS(Path("/path/to/empty//dir"));
+    }
 }
 
 TEST_CASE("Path methods") {
